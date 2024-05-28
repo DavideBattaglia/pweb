@@ -3,11 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <title>Registrazione</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="styles.css">
 </head>
 
+<header>
+  <div class="container">
+    <img src="img/zughri.png" alt="Logo" class="logo">
+    <nav style="float: right">
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Spettacoli teatrali</a></li>
+        <li><a href="#">Eventi sportivi</a></li>
+        <li><a href="#">Visite guidate</a></li>
+        <li><a href="#">Contatti</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
 <body>
-<div id="navbar-placeholder"></div>
 <div class="container1">
   <h1>Registrazione Utente</h1>
   <form action="./RegistrationServlet" method="post">
@@ -42,14 +56,6 @@
 
   </form>
 </div>
-<script>
-  fetch('navbar.html')
-          .then(response => response.text())
-          .then(html => {
-            const navbarPlaceholder = document.getElementById('navbar-placeholder');
-            navbarPlaceholder.innerHTML = html;
-          });
-</script>
 
 </body>
 </html>

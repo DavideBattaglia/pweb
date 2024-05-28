@@ -58,7 +58,7 @@ public class authentication_filter implements Filter {
 
             try {
                 stmt = conn.createStatement();
-                String sql = "SELECT * FROM USERS1";
+                String sql = "SELECT USERNAME, PASSWORD FROM UTENTI";
                 results = stmt.executeQuery(sql);
 
                 while (results.next()) { // per semplicità si supponga di avere un solo utente nella tbella del DB

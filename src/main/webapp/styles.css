@@ -51,6 +51,7 @@ h1 {
     text-align: center;
     margin-bottom: 20px;
 }
+
 h2 {
     text-align: center;
     margin-bottom: 20px;
@@ -90,7 +91,7 @@ input[type="email"],
 input[type="password"],
 input[type="tel"],
 input[type="date"] {
-    width: 100%;  /*Make inputs span the full width */
+    width: 100%; /*Make inputs span the full width */
     padding: 10px; /* Add padding for better spacing */
     border: 1px solid #ccc; /* Add a thin border */
     border-radius: 5px; /* Add rounded corners */
