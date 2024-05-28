@@ -13,15 +13,12 @@ public class authentication_filter implements Filter {
     public void init(FilterConfig fconfig) throws ServletException {
         try {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
-        }
-        catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException e) {
             throw new UnavailableException(
                     "authentication_filter..doFilter(  ) ClassNotFoundException: " +
-                            e.getMessage(  ));
+                            e.getMessage());
         }
-
     }
-
 
     public void destroy() {
     }
@@ -33,8 +30,8 @@ public class authentication_filter implements Filter {
         String URL = "jdbc:derby://localhost:1527/ProgWebDB";
         String DBuser = "App";
         String DBpwd = "pw";
-        Statement stmt = null;
-        ResultSet results  = null;
+        PreparedStatement ps = null;
+        ResultSet results = null;
         String user = null;
         String pwd = null;
 
@@ -45,50 +42,79 @@ public class authentication_filter implements Filter {
 
         HttpSession session = hreq.getSession(false);
 
-        if (session != null && session.getAttribute("name")!=null) {
+        if (session != null && session.getAttribute("name") != null) {
             chain.doFilter(request, response);
 
-        }else if (session == null) {
+        } else if (session == null) {
             try {
-                conn = DriverManager.getConnection(URL,DBuser,DBpwd);
-            }
-            catch (SQLException e) {
-                throw new UnavailableException("authentication_filter.doFilter(  ) SQLException: " + e.getMessage(  ));
+                conn = DriverManager.getConnection(URL, DBuser, DBpwd);
+            } catch (SQLException e) {
+                throw new UnavailableException("authentication_filter.doFilter(  ) SQLException: " + e.getMessage());
             }
 
             try {
-                stmt = conn.createStatement();
-                String sql = "SELECT USERNAME, PASSWORD FROM UTENTI";
-                results = stmt.executeQuery(sql);
+                String sql = "SELECT PASSWORD FROM UTENTI WHERE USERNAME = ?";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, username);
+                results = ps.executeQuery();
 
-                while (results.next()) { // per semplicità si supponga di avere un solo utente nella tbella del DB
-                    user=results.getString(1);
-                    pwd=results.getString(2);
+                if (results.next()) {
+                    String dbPassword = results.getString(1);
+                    if (password.equals(dbPassword)) {
+
+                        session = hreq.getSession();
+                        session.setAttribute("name", username);
+                        SessionConnection sessionConnection = new SessionConnection();
+                        sessionConnection.setConnection(conn);
+                        session.setAttribute("sessionconnection", sessionConnection);
+                        chain.doFilter(request, response);
+
+                    } else {
+                        // Invalid password
+                        try {
+                            conn.close();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
+                        request.getRequestDispatcher("./failure.html").forward(request, response);
+                    }
+                } else {
+                    // Username not found
+                    try {
+                        conn.close();
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                    request.getRequestDispatcher("./failure.html").forward(request, response);
                 }
-                results.close();
-                stmt.close();
-            }catch(SQLException e) {
-                throw new UnavailableException("authentication_filter.doFilter(  ) SQLException: " + e.getMessage(  ));
-            }
-
-            if (username.equals(user) && password.equals(pwd)) {
-
-                session = hreq.getSession();
-                session.setAttribute("name", username);
-                SessionConnection sessionConnection = new SessionConnection(  );
-                sessionConnection.setConnection(conn);
-                session.setAttribute("sessionconnection", sessionConnection);
-                chain.doFilter(request, response);
-            }
-            else { //utente non autenticato
-                try {
-                    conn.close(); //  chiudo la connessione che avevo aperto per recuperare username e pwd
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } finally {
+                if (results != null) {
+                    try {
+                        results.close();
+                    } catch (SQLException e) {
+                        // Handle exception
+                    }
                 }
-                request.getRequestDispatcher("./failure.html").forward(request, response);}
-
+                if (ps != null) {
+                    try {
+                        ps.close();
+                    } catch (SQLException e) {
+                        // Handle exception
+                    }
+                }
+                if (conn != null) {
+                    try {
+                        conn.close();
+                    } catch (SQLException e) {
+                        // Handle exception
+                    }
                 }
             }
-
+        } else {
+            // No session, redirect to login page
+            request.getRequestDispatcher("./login.html").forward(request, response);
         }
+    }
+}
