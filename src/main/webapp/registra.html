@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
   <meta charset="UTF-8">
   <title>Registrazione</title>
   <link rel="stylesheet" href="styles.css">
+
 </head>
 
 <header>
@@ -50,12 +52,14 @@
     <input type="password" id="conferma_password" name="conferma_password" required><br>
 
     <div class="buttons">
-      <button type="submit" class="btn">Registrati</button>
+      <button onclick="return performRegister()" type="submit"  class="btn" >Registrati</button>
       <p> Già registrato? <a href="login.html">Accedi</a></p>
     </div>
 
   </form>
 </div>
 
+
+<script src="./public/js/validation.js"></script>
 </body>
 </html>

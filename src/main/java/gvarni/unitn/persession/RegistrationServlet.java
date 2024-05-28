@@ -38,12 +38,12 @@ public class RegistrationServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("conferma_password"); // Get confirm password
-
+/*
         if (!password.equals(confirmPassword)) {
             out.println("<p>Errore: Password e conferma password non corrispondono.</p>");
             return; // Stop further processing if passwords don't match
         }
-
+*/
         // Check if username already exists in the database
         try (Connection conn = DriverManager.getConnection(dbURL, DBuser, DBpwd);
              PreparedStatement usernameCheckStmt = conn.prepareStatement("SELECT COUNT(*) FROM UTENTI WHERE USERNAME = ?")) {
