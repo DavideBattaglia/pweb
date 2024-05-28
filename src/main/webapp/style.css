@@ -9,6 +9,9 @@ body {
     min-height: 100vh; /* Ensure form takes up the full viewport height */
 }
 
+.container1 {
+
+}
 
 
 header {
@@ -53,33 +56,6 @@ h2 {
     margin-bottom: 20px;
 }
 
-label {
-    display: block; /* Make labels appear on their own line */
-    text-align: center;
-    margin-bottom: 5px; /* Add some space below labels */
-    font-family: sans-serif; /* Specify the desired font family */
-    font-size: 30px; /* Set the font size */
-    font-weight: bold; /* Make labels stand out visually */
-    text-align: center;
-
-}
-
-input[type="text"],
-input[type="password"],
-input[type="email"],
-input[type="number"],
-input[type="search"],
-input[type="date"],
-textarea {
-    width: 100%; /* Make inputs fill the available width */
-    padding: 10px; /* Add some padding for better usability */
-    border: 1px solid #ccc; /* Add a subtle border */
-    box-sizing: border-box; /* Ensure padding is included in width calculation */
-    margin-bottom: 5px; /* Add some space below inputs */
-    font-family: sans-serif; /* Specify the desired font family (optional) */
-    font-size: 25px; /* Set the font size (optional) */
-
-}
 
 .buttons {
     display: flex;
@@ -97,4 +73,39 @@ textarea {
     display: inline-block;
     font-size: 16px;
     margin: 4px 2px;
+}
+
+label {
+    text-align: center;
+    display: flex; /* Make labels behave like block elements */
+    margin-bottom: 5px; /* Add some space below labels */
+    font-weight: bold; /* Make labels bold for emphasis */
+    align-items: center;
+    justify-content: center;
+}
+
+/* Styling for Input Fields */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="date"] {
+    width: 100%;  /*Make inputs span the full width */
+    padding: 10px; /* Add padding for better spacing */
+    border: 1px solid #ccc; /* Add a thin border */
+    border-radius: 5px; /* Add rounded corners */
+    box-sizing: content-box; /* Ensure padding is included in width */
+    margin-bottom: 10px; /* Add some space below inputs */
+    font-size: 12px; /* Set a comfortable font size */
+    padding: 5px;
+}
+
+.container1 {
+    display: flex; /* Enable flexbox layout */
+    flex-direction: column; /* Arrange items vertically */
+    align-items: center; /* Center items horizontally */
+    justify-content: center; /* Center items vertically */
+    min-height: 100vh; /* Set minimum height to cover the viewport */
+    width: 100%; /* Make the container span the full width */
+    margin: 0 auto; /* Remove default margins and center horizontally */
 }
