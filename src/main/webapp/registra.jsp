@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,23 +8,9 @@
   <link rel="stylesheet" href="styles.css">
 
 </head>
-
-<header>
-  <div class="container">
-    <img src="img/zughri.png" alt="Logo" class="logo">
-    <nav style="float: right">
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Spettacoli teatrali</a></li>
-        <li><a href="#">Eventi sportivi</a></li>
-        <li><a href="#">Visite guidate</a></li>
-        <li><a href="#">Contatti</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
-
 <body>
+<%@ include file="navbar.html" %>
+
 <div class="container1">
   <h1>Registrazione Utente</h1>
   <form action="./RegistrationServlet" method="post">

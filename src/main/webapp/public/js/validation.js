@@ -21,27 +21,27 @@ function performRegister() {
     // Validate all fields are non-empty
     if (!nome || !cognome || !data_nascita || !email || !telefono_cellulare || !username || !password || !conferma_password) {
         alert('Compila tutti i campi obbligatori.');
-        return; // Stop if any field is empty
+        return false; // Stop if any field is empty
     }
 
     // Validate email format (optional)
     const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     if (!emailRegex.test(email)) {
         alert('Formato email non valido.');
-        return;
+        return false;
     }
 
     // Validate phone number format (optional)
     const phoneRegex = /^\d{10}$/; // Assuming Italian phone numbers (10 digits)
     if (!phoneRegex.test(telefono_cellulare)) {
         alert('Formato numero di telefono non valido (10 cifre).');
-        return;
+        return false ;
     }
 
     // Validate password match
     if (password !== conferma_password) {
         alert('Le password non corrispondono.');
-        return;
+        return false;
     }
 
     const dob = new Date(data_nascitaInput.value);
