@@ -1,11 +1,9 @@
-package gvarni.unitn.persession;
+package web.gvarni.servletfinal;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
-
-import java.sql.*;
-import javax.servlet.http.*;
+import javax.servlet.http.HttpSessionBindingEvent;
+import javax.servlet.http.HttpSessionBindingListener;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 public class SessionConnection implements HttpSessionBindingListener {
 

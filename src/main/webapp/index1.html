@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Find city</title>
+  <script src="./javascript/processing.js"></script>
+  <style>
+    table, th, td {
+      border-spacing: 10px;
+      padding: 15px;
+    }
+  </style>
+</head>
+<body>
+<h1>Find city</h1><br>
+<form method="get" name="data_form">
+  <label for="city">City name</label>
+  <input type="text" id="city" name=fname>
+  <br><br>
+  <input type="button" id="make_query" onClick='validateData();' value="Get data">
+</form>
+<br><br>
+<div id="result"></div>
+<br><br>
+<table id="output"></table>
+</body>
+</html>

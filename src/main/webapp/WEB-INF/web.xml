@@ -6,7 +6,7 @@
 
     <filter>
         <filter-name>auth_filter</filter-name>
-        <filter-class>gvarni.unitn.persession.authentication_filter</filter-class>
+        <filter-class>web.gvarni.servletfinal.authentication_filter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>auth_filter</filter-name>

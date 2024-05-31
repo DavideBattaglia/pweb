@@ -1,4 +1,4 @@
-package gvarni.unitn.persession;
+package web.gvarni.servletfinal;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
