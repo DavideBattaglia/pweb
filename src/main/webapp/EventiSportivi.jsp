@@ -30,15 +30,11 @@
                 Luogo: <%= resultSet.getObject("Localita") %>
             </p>
 
-            <form action="carrello" method="post">
-                <input type="hidden" name="eventId" value="<%= resultSet.getObject("Id") %>" id="eventId">  <div class="form-group d-flex justify-content-end" aria-labelledby="ticketTypeLabel">
-                <label id="ticketTypeLabel">Tipologia Biglietto:</label>
-                <div class="d-flex">
-                    <button type="submit" class="btn btn-primary me-2" name="ticketType" value="STANDING">In Piedi (€<%= resultSet.getObject("PrezzoInPiedi") %>)</button>
-                    <button type="submit" class="btn btn-primary" name="ticketType" value="SEATED">Seduto (€<%= resultSet.getObject("PrezzoASedere") %>)</button>
-                </div>
+            <div class="d-flex justify-content-between">
+                <form action="dettaglio_evento" method="post">  <input type="hidden" name="eventId" value="<%= resultSet.getObject("Id") %>" id="eventId">
+                    <button type="submit" class="btn btn-secondary">Visualizza Evento</button>
+                </form>
             </div>
-            </form>
         </div>
     </div>
     <% } %>
@@ -48,10 +44,10 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    // JavaScript to set eventId value dynamically
-    function setEventId(eventId) {
-        document.getElementById("eventId").value = eventId;
-    }
+    // JavaScript to set eventId value dynamically (optional, can be removed)
+    // function setEventId(eventId) {
+    //     document.getElementById("eventId").value = eventId;
+    // }
 </script>
 </body>
 </html>

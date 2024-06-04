@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Spett</title>
+    <title>Eventi Sportivi</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -27,7 +27,6 @@
             <h5 class="card-title"><%= resultSet.getObject("NomeEvento") %></h5>
             <p class="card-text">
                 Data e Ora: <%= resultSet.getObject("DataOra") %> <br>
-                Luogo: <%= resultSet.getObject("Localita") %>
             </p>
 
             <form action="carrello" method="post">

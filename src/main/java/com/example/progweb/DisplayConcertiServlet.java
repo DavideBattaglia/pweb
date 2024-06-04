@@ -29,7 +29,7 @@ public class DisplayConcertiServlet extends HttpServlet {
 
             // Connessione al database
             connection = DriverManager.getConnection("jdbc:derby://localhost:1527/ProgWebDB");
-            String query = "SELECT NomeEvento, DataOra, Immagine FROM eventi WHERE TipoEvento =?";
+            String query = "SELECT * FROM eventi WHERE TipoEvento =?";
             statement = connection.prepareStatement(query);
             statement.setString(1, "concerti");
             resultSet = statement.executeQuery();
