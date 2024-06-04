@@ -8,6 +8,30 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%-- Verifica se il consenso dei cookie è stato dato --%>
+<%
+    Cookie[] cookies = request.getCookies();
+    boolean consentGiven = false;
+    boolean consentRejected = false;
+    if (cookies != null) {
+        for (Cookie cookie : cookies) {
+            if ("cookieConsent".equals(cookie.getName()) && "true".equals(cookie.getValue())) {
+                consentGiven = true;
+                break;
+            } else if ("cookieConsent".equals(cookie.getName()) && "false".equals(cookie.getValue())) {
+                consentRejected = true;
+                break;
+            }
+        }
+    }
+
+    if (!consentGiven && !consentRejected) {
+        response.sendRedirect("cookie-consent");
+    } else if (consentRejected) {
+        session.setAttribute("urlRewriting", true);
+    } else {
+        session.setAttribute("urlRewriting", false);
+    }
+%>
 
 <!DOCTYPE html>
 <html>
@@ -15,6 +39,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 
@@ -29,9 +54,15 @@
         <h1>Welcome to Zughri events</h1>
         <p>Benvenuti a Zugri Eventi, il tuo portale per vivere al massimo il tuo tempo libero a Trento e dintorni</p>
 
+        <% if (Boolean.TRUE.equals(session.getAttribute("urlRewriting"))) { %>
+        <p>Stai navigando con URL rewriting abilitato.</p>
+        <% } else { %>
+        <p>Stai navigando con i cookie abilitati.</p>
+        <% } %>
+
         <div class="buttons">
-            <a href="<%= response.encodeURL("registra.jsp") %>"><button class="btn">Registra</button></a>
-            <a href="<%= response.encodeURL("login.jsp") %>"><button class="btn">Login</button></a>
+            <a href="<%= response.encodeURL("registra.jsp") %>"> <button class="btn">Registra</button></a>
+            <a href="<%= response.encodeURL("login.jsp") %>"> <button class="btn">Login</button></a>
         </div>
     </div>
 </main>
@@ -39,6 +70,7 @@
     <%@include file = "footer.html" %>
 
 
+<script src="/AvvisoCookiesServlet"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
