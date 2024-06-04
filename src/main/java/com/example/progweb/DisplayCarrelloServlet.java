@@ -55,4 +55,9 @@ public class DisplayCarrelloServlet extends HttpServlet {
             // response.getWriter().write("Devi effettuare il login per visualizzare il tuo carrello.");
         }
     }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doGet(request, response);
+    }
 }

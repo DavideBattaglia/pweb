@@ -31,8 +31,11 @@
             </p>
 
             <div class="d-flex justify-content-between">
-                <form action="dettaglio_evento" method="post">  <input type="hidden" name="eventId" value="<%= resultSet.getObject("Id") %>" id="eventId">
-                    <button type="submit" class="btn btn-secondary">Visualizza Evento</button>
+                <form action="dettaglioEvento" method="post">
+                    <input type="hidden" name="eventId" value="<%= resultSet.getObject("Id") %>" id="eventId">
+                    <div class="container1">
+                        <button type="submit" class="btn btn-secondary">Visualizza Evento</button>
+                    </div>
                 </form>
             </div>
         </div>

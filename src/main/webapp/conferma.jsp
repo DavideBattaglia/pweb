@@ -43,7 +43,7 @@
     }
 
     function logout() {
-      window.location.href = "logout.jsp"; // Replace with the actual URL for logout.jsp
+      window.location.href = "/logout"; // Replace with the actual URL for logout.jsp
     }
   </script>
 </div>

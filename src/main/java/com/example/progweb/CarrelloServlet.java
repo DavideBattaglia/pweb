@@ -49,8 +49,8 @@ public class CarrelloServlet extends HttpServlet {
                     insertStatement.setString(4, ticketType);
                     insertStatement.setInt(5, price);
                     insertStatement.executeUpdate();
-
-                    response.getWriter().write("Ticket aggiunto al carrello con successo!");
+                    request.getRequestDispatcher(response.encodeURL("/DisplayCarrelloServlet")).forward(request, response);
+                    //response.getWriter().write("Ticket aggiunto al carrello con successo!");
                 } else {
                     response.getWriter().write("Errore: Impossibile recuperare il prezzo del biglietto!");
                 }
@@ -63,11 +63,13 @@ public class CarrelloServlet extends HttpServlet {
                 response.getWriter().write("Errore durante l'aggiunta del ticket al carrello!");
             }
         } else {
+
             // Handle invalid username, event ID or missing ticket type
             System.out.println("Username provato: " + username);
             System.out.println("ID evento provato: " + eventId);
             System.out.println("Tipologia biglietto provata: " + ticketType);
-            response.getWriter().write("Errore: username, ID evento o tipologia biglietto non validi!");
+            request.getRequestDispatcher(response.encodeURL("/login.jsp")).forward(request, response);
+            //response.getWriter().write("Errore: username, ID evento o tipologia biglietto non validi!");
         }
     }
 

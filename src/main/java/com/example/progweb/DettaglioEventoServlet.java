@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.sql.*;
 
-@WebServlet("/dettaglio_evento")
+@WebServlet("/dettaglioEvento")
 public class DettaglioEventoServlet extends HttpServlet {
 
     @Override
@@ -19,38 +19,35 @@ public class DettaglioEventoServlet extends HttpServlet {
         int eventId = Integer.parseInt(request.getParameter("eventId"));
 
         // Establish database connection (replace with your actual DB connection details)
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/database_name", "username", "password")) {
+        try (Connection connection = DriverManager.getConnection("jdbc:derby://localhost:1527/ProgWebDB", "app", "aa")) {
             // Prepare and execute SQL query to fetch event details
             String sql = "SELECT * FROM eventi WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, eventId);
             ResultSet resultSet = statement.executeQuery();
 
-            // Check if event exists and extract data
+            // Check if event exists
             if (resultSet.next()) {
-                String nome = resultSet.getString("NomeEvento");
-                String dataOra = resultSet.getString("DataOra");
-                String localita = resultSet.getString("Localita");
-                String immagine = resultSet.getString("Immagine");
-                String descrizione = resultSet.getString("Descrizione");
-                double prezzoInPiedi = resultSet.getDouble("PrezzoInPiedi");
-                double prezzoASedere = resultSet.getDouble("PrezzoASedere");
-
-                // Create an Event object (replace with your actual Event class if you have one)
-                Event evento = new Event(eventId, nome, dataOra, localita, immagine, descrizione, prezzoInPiedi, prezzoASedere);
-
-                // Store event object in request attribute
-                request.setAttribute("evento", evento);
+                // No need to create an Event object here (optional)
+                request.setAttribute("Id", resultSet.getString("Id"));
+                request.setAttribute("nomeEvento", resultSet.getString("NomeEvento"));
+                request.setAttribute("dataOra", resultSet.getString("DataOra"));
+                request.setAttribute("localita", resultSet.getString("Localita"));
+                request.setAttribute("immagine", resultSet.getString("Immagine"));
+                request.setAttribute("prezzoInPiedi", resultSet.getDouble("PrezzoInPiedi"));
+                request.setAttribute("prezzoASedere", resultSet.getDouble("PrezzoASedere"));
 
                 // Forward request to dettaglio_evento.jsp
                 RequestDispatcher dispatcher = request.getRequestDispatcher("dettaglio_evento.jsp");
                 dispatcher.forward(request, response);
             } else {
                 // Handle event not found (e.g., show an error message)
+                System.out.println("eventId: " + eventId);
                 response.sendRedirect("eventi_sportivi.jsp"); // Redirect to event list page
             }
         } catch (SQLException ex) {
             ex.printStackTrace(); // Handle database errors appropriately
+            System.out.println("eventId SQLerr: " + eventId);
             response.sendRedirect("eventi_sportivi.jsp"); // Redirect to event list page
         }
     }
