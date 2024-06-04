@@ -7,32 +7,6 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<%-- Verifica se il consenso dei cookie è stato dato --%>
-<%
-    Cookie[] cookies = request.getCookies();
-    boolean consentGiven = false;
-    boolean consentRejected = false;
-    if (cookies != null) {
-        for (Cookie cookie : cookies) {
-            if ("cookieConsent".equals(cookie.getName()) && "true".equals(cookie.getValue())) {
-                consentGiven = true;
-                break;
-            } else if ("cookieConsent".equals(cookie.getName()) && "false".equals(cookie.getValue())) {
-                consentRejected = true;
-                break;
-            }
-        }
-    }
-
-    if (!consentGiven && !consentRejected) {
-        response.sendRedirect("cookie-consent");
-    } else if (consentRejected) {
-        session.setAttribute("urlRewriting", true);
-    } else {
-        session.setAttribute("urlRewriting", false);
-    }
-%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -69,8 +43,6 @@
 
     <%@include file = "footer.html" %>
 
-
-<script src="/AvvisoCookiesServlet"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
