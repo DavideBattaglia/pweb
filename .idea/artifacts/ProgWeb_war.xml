@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="ProgWeb:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>ProgWeb</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="ProgWeb-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="ProgWeb:war exploded" />
+    </root>
+  </artifact>
+</component>

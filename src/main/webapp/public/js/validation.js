@@ -21,27 +21,27 @@ function performRegister() {
     // Validate all fields are non-empty
     if (!nome || !cognome || !data_nascita || !email || !telefono_cellulare || !username || !password || !conferma_password) {
         alert('Compila tutti i campi obbligatori.');
-        return false; // Stop if any field is empty
+        return; // Stop if any field is empty
     }
 
     // Validate email format (optional)
     const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     if (!emailRegex.test(email)) {
         alert('Formato email non valido.');
-        return false;
+        return;
     }
 
     // Validate phone number format (optional)
     const phoneRegex = /^\d{10}$/; // Assuming Italian phone numbers (10 digits)
     if (!phoneRegex.test(telefono_cellulare)) {
         alert('Formato numero di telefono non valido (10 cifre).');
-        return false ;
+        return;
     }
 
     // Validate password match
     if (password !== conferma_password) {
         alert('Le password non corrispondono.');
-        return false;
+        return;
     }
 
     const dob = new Date(data_nascitaInput.value);
@@ -57,6 +57,6 @@ function performRegister() {
     setTimeout(() => {
         alert('Registrazione avvenuta con successo!');
         // Redirect to login or other relevant page
-        window.location.href = 'login.html'; // Replace with your target URL
+        window.location.href = 'login.jsp'; // Replace with your target URL
     }, 1000); // Simulate a 1-second delay
 }

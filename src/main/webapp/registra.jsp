@@ -1,16 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 
   <meta charset="UTF-8">
   <title>Registrazione</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
   <link rel="stylesheet" href="styles.css">
 
 </head>
-<body>
-<%@ include file="navbar.html" %>
 
+<header>
+  <%@include file = "navbar.jsp" %>
+</header>
+
+<body>
 <div class="container1">
   <h1>Registrazione Utente</h1>
   <form action="./RegistrationServlet" method="post">
@@ -40,13 +45,17 @@
 
     <div class="buttons">
       <button onclick="return performRegister()" type="submit"  class="btn" >Registrati</button>
-      <p> Già registrato? <a href="login.html">Accedi</a></p>
+      <p> Già registrato? <a href="<%= response.encodeURL("login.jsp") %>">Accedi</a></p>
     </div>
 
   </form>
 </div>
 
+<%@include file = "footer.html" %>
 
 <script src="./public/js/validation.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

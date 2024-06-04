@@ -4,10 +4,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>web.gvarni</groupId>
-    <artifactId>ServletFinal</artifactId>
+    <groupId>com.example</groupId>
+    <artifactId>ProgWeb</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>ServletFinal</name>
+    <name>ProgWeb</name>
     <packaging>war</packaging>
 
     <properties>
@@ -38,12 +38,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.10.1</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.apache.derby</groupId>
             <artifactId>derbyclient</artifactId>
             <version>10.16.1.1</version>
@@ -58,8 +52,6 @@
             <artifactId>derbytools</artifactId>
             <version>10.16.1.1</version>
         </dependency>
-
-
 
     </dependencies>
 
