@@ -20,6 +20,12 @@ public class DettaglioEventoServlet extends HttpServlet {
 
         // Establish database connection (replace with your actual DB connection details)
         try (Connection connection = DriverManager.getConnection("jdbc:derby://localhost:1527/ProgWebDB", "app", "aa")) {
+
+            String updateSql = "UPDATE Eventi SET Click = Click + 1 WHERE Id = ?";
+            PreparedStatement updateStatement = connection.prepareStatement(updateSql);
+            updateStatement.setInt(1, eventId);
+            updateStatement.executeUpdate();
+
             // Prepare and execute SQL query to fetch event details
             String sql = "SELECT * FROM eventi WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
