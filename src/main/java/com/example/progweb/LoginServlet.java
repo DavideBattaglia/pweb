@@ -40,10 +40,16 @@ public class LoginServlet extends HttpServlet {
 
             if (resultSet.next()) {
 
+                boolean isAdmin = resultSet.getBoolean("IsAdmin");
                 HttpSession session = request.getSession();
                 session.setAttribute("user", username);
-                String s = response.encodeRedirectURL("welcome.jsp");
-                response.sendRedirect(s);
+                if (isAdmin) { // L'utente è un admin
+                    session.setAttribute("isAdmin", true);
+                    request.getRequestDispatcher("/welcomeAdmin.jsp").include(request, response); // Redirige verso la pagina admin
+                } else { // L'utente non è un admin
+                    session.setAttribute("isAdmin", false);
+                    request.getRequestDispatcher("/welcome.jsp").include(request, response); // Redirige verso la pagina utente normale
+                }
             } else {
                 request.getRequestDispatcher("./login.jsp").include(request, response);
             }

@@ -1,25 +1,4 @@
-.card img {
-    max-width: 45%;
-    max-height: 80%;
-    object-fit: contain;
-}
-.card-img-top-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
-.card-img-top {
-    max-width: 100%;
-    height: 80%;
-}
-.card {
-    width: 500px;
-    height: 500px;
-    margin-top: 30px;
-    margin-right: 15px;
-    margin-left: 15px;
-}
 body {
     font-family: sans-serif;
     padding-bottom: 100px;
@@ -31,6 +10,7 @@ body {
     align-items: center; /* Center the form vertically */
     min-height: 100vh; /* Ensure form takes up the full viewport height */
 }
+
 
 
 header {
@@ -160,9 +140,19 @@ h2 {
 
 
 .buttons {
-    display: flex; /* Enable flexbox layout */
-    justify-content: center; /* Center items horizontally */
-    align-items: center; /* Center items vertically (optional) */
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    background-color: #7e00aa;
+}
+
+.buttons1 {
+    display: flex;
+    justify-content: center;
+    margin-top: 0px;
+    background-color: #7e00aa;
+    width: 100px;
+    height: 100px;
 }
 
 .btn {
@@ -175,7 +165,6 @@ h2 {
     display: inline-block;
     font-size: 16px;
     margin: 4px 2px;
-    border-radius: 0px;
 }
 
 label {
@@ -203,6 +192,7 @@ input[type="date"] {
     padding: 5px;
 }
 
+
 .container1 {
     display: flex; /* Enable flexbox layout */
     flex-direction: column; /* Arrange items vertically */
@@ -212,3 +202,32 @@ input[type="date"] {
     width: 100%; /* Make the container span the full width */
     margin: 0 auto; /* Remove default margins and center horizontally */
 }
+
+
+.container2 {
+    display: flex; /* Enable flexbox layout */
+    align-items: center; /* Center items horizontally */
+    margin: 0 auto; /* Remove default margins and center horizontally */
+}
+
+
+
+.card {
+    /* Add shadows to create the "card" effect */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 30%;
+    border-radius: 5px;
+    margin: 1rem; /* Example: Add 1rem margin around each card */
+}
+
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+/* Add some padding inside the card container */
+.container {
+    padding: 0px 16px;
+}
+

@@ -59,7 +59,7 @@ public class RegistrationServlet extends HttpServlet {
 
         // Connect to Derby database
         try (Connection conn = DriverManager.getConnection(dbURL, DBuser, DBpwd)) {
-            String sql = "INSERT INTO UTENTI (NOME, COGNOME, DATA_NASCITA, EMAIL, TELEFONO_CELLULARE, USERNAME, PASSWORD) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO UTENTI (NOME, COGNOME, DATA_NASCITA, EMAIL, TELEFONO_CELLULARE, USERNAME, PASSWORD, ISADMIN, ACQUISTI) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             try (PreparedStatement statement = conn.prepareStatement(sql)) {
                 statement.setString(1, nome);
                 statement.setString(2, cognome);
@@ -68,6 +68,8 @@ public class RegistrationServlet extends HttpServlet {
                 statement.setString(5, telefonoCellulare);
                 statement.setString(6, username);
                 statement.setString(7, password);
+                statement.setBoolean(8, false);
+                statement.setInt(9, 0);
                 int rowsInserted = statement.executeUpdate();
                 if (rowsInserted > 0) {
                     HttpSession session = request.getSession();

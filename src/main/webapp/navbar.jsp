@@ -21,34 +21,54 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="<%= response.encodeURL("index.jsp") %>">Home</a>
+                    <a class="nav-link active" aria-current="page" href="<%= response.encodeURL("DisplayDiscountServlet") %>">Home</a>
                 </li>
-                <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="eventiDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    Eventi
-                </a>
-                    <ul class="dropdown-menu" aria-labelledby="eventiDropdown"> <li><a class="dropdown-item" href="<%= response.encodeURL("DisplayConcerti") %>">Concerti</a></li>
+                <%Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
+                if (isAdmin != null && isAdmin) {
+                %>
+                    <li class="divider"></li>
+                    <li><a class="nav-link active" aria-current="page" href="<%= response.encodeURL("DisplayEventiServlet") %>">Gestione Eventi</a></li>
+                    <li><a class="nav-link active" aria-current="page" href="<%= response.encodeURL("DisplayUtentiServlet") %>">Visualizza Utenti</a></li>
+                <%
+                } else {
+                %>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="<%= response.encodeURL("") %>">Contatti</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="<%= response.encodeURL("DisplayCarrelloServlet") %>">Carrello</a>
+                    </li>
+                        <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="eventiDropdown" data-bs-toggle="dropdown" aria-expanded="false">Eventi</a>
+                    <ul class="dropdown-menu" aria-current="page" aria-labelledby="eventiDropdown"> <li><a class="dropdown-item" href="<%= response.encodeURL("DisplayConcerti") %>">Concerti</a></li>
                         <li><a class="dropdown-item" href="<%= response.encodeURL("DisplaySpettacoliTeatrali") %>">Spettacoli teatrali</a></li>
                         <li><a class="dropdown-item" href="<%= response.encodeURL("DisplayEventiSportivi") %>">Eventi Sportivi</a></li>
-                        <li><a class="dropdown-item" href="<%= response.encodeURL("DisplayVisiteGuidate") %>">Visite guidate</a></li>
+                        <li><a class="dropdown-item" href="<%= response.encodeURL("DisplayVisiteGuidate") %>">Visite Guidate</a></li>
+                        <li class="divider"></li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<%= response.encodeURL("") %>">Contatti</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<%= response.encodeURL("DisplayCarrelloServlet") %>">Carrello</a>
-                </li>
+                <%
+                    }
+                %>
+
                 <li class="nav-item">
                     <%
                         String username = (String) session.getAttribute("user");
                         if (username != null && !username.isEmpty()) {
                     %>
-                    <a class="nav-link" href="#"><%= username %></a>
+                    <a class="nav-link" aria-current="page" href="#"><%= username %></a>
+                    <a class="nav-link active" aria-current="page" href="<%= response.encodeURL("logout") %>">Logout</a>
                     <%
-                    }
+                    } else {
+
+                    %>
+                    <a class="nav-link active" aria-current="page" href="<%= response.encodeURL("login.jsp") %>">Login</a>
+                    <a class="nav-link active" aria-current="page" href="<%= response.encodeURL("registra.jsp") %>">Registrati</a>
+                    <%
+                        }
                     %>
 
                 </li>
+
             </ul>
         </div>
     </div>

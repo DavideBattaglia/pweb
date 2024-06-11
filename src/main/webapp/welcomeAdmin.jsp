@@ -13,7 +13,7 @@
 </header>
 
 <h2>Welcome</h2>
-<p>Welcome, ${sessionScope.user}!</p>
+<p>Welcome you are in the admin page, ${sessionScope.user}!</p>
 <a href="<%= response.encodeURL("logout") %>">Logout</a>
 
 <%@include file = "footer.html" %>
