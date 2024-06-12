@@ -48,10 +48,10 @@ public class LoginServlet extends HttpServlet {
                     request.getRequestDispatcher("/welcomeAdmin.jsp").include(request, response); // Redirige verso la pagina admin
                 } else { // L'utente non è un admin
                     session.setAttribute("isAdmin", false);
-                    request.getRequestDispatcher("/welcome.jsp").include(request, response); // Redirige verso la pagina utente normale
+                    request.getRequestDispatcher(response.encodeURL("/welcome.jsp")).include(request, response); // Redirige verso la pagina utente normale
                 }
             } else {
-                request.getRequestDispatcher("./login.jsp").include(request, response);
+                request.getRequestDispatcher(response.encodeURL("./login.jsp")).include(request, response);
             }
         } catch (Exception e) {
             throw new ServletException(e);

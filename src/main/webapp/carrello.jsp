@@ -12,14 +12,18 @@
 <header>
   <%@include file = "navbar.jsp" %>
 </header>
-
+<%
+  // Retrieve totalAcquisti as an integer (assuming it's an integer value)
+  int totalAcquisti = (int) request.getAttribute("totalAcquisti");
+%>
 <div class="container">
   <h1>Carrello</h1>
   <p>Ogni 5 biglietti uno te lo regaliamo noi</p>
-
+  <p>Ad oggi hai aquistato <%=totalAcquisti%> biglietti</p>
   <%
     // Retrieve events from the request attribute
     ResultSet resultSet = (ResultSet) request.getAttribute("resultSet");
+
     int totalPrice = 0; // Initialize total price
     int freeTicketCount = 0; // Track free tickets
 
@@ -33,18 +37,24 @@
       <th>Data e Ora</th>
       <th>Luogo</th>
       <th>Tipologia Biglietto</th>
+      <th>Sconto</th>
       <th>Prezzo</th>
     </tr>
     </thead>
     <tbody>
     <%
-      int counter = 1; // Counter for tracking ticket position
+      int counter = 1 + totalAcquisti; // Counter for tracking ticket position
       // Iterate through the resultSet (no need to call next() before the loop)
       int price = 0;
+      double discount = 0.0;
       while (resultSet.next()) {
         price = resultSet.getInt("Prezzo");
+        discount = resultSet.getDouble("Sconto"); // Assuming discount is a double
 
-        // Apply discount logic (assuming promotion applies to all events)
+        // Apply discount logic
+        price *= (1 - discount / 100.0); // Apply discount as a percentage
+
+        // Free ticket logic (assuming promotion applies to all events)
         if (counter % 5 == 0) {
           freeTicketCount++;
           price = 0; // Set price to 0 for free ticket
@@ -60,6 +70,7 @@
       <td><%=resultSet.getObject(2)%></td>
       <td><%=resultSet.getObject(3)%></td>
       <td><%=resultSet.getObject(4)%></td>
+      <td><%=resultSet.getObject(6)%>%</td>
       <td class="<%=priceClass%>"><%=price%> €</td>
     </tr>
     <%

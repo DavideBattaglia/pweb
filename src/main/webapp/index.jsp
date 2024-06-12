@@ -1,6 +1,40 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.io.UnsupportedEncodingException" %>
 <%@ page import="java.sql.ResultSet" %>
+
+
+<%
+    String Consent = null;
+    javax.servlet.http.Cookie[] biscotti = request.getCookies();
+    if (biscotti != null) {
+        for (javax.servlet.http.Cookie cookie : biscotti) {
+            if ("cookie_accepted".equals(cookie.getName())) {
+                Consent = cookie.getValue();
+                break;
+            }
+        }
+    }
+
+
+    String sid = session.getId();
+    String dettaglioURL = "dettaglioEvento";
+
+    if("false".equals(Consent)){
+        dettaglioURL += ";jsessionid=" + sid;
+
+    }
+
+    try {
+        String dettaglioencodedURL = URLEncoder.encode(dettaglioURL, "UTF-8");
+
+
+    } catch (UnsupportedEncodingException e) {
+        // Gestione dell'eccezione, se necessario
+        e.printStackTrace();
+    }
+%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,14 +73,14 @@
             <%while (resultSet.next()) { // Loop through each event result %>
             <div class="carousel-item <% if (itemCount == 0) { %>active<% } %> ">
                 <%-- Set image source dynamically based on your data structure --%>
-                    <div class="d-flex justify-content-center align-items-center">
-                        <img src="<%= resultSet.getObject("Immagine") %>" width="120px" border-radius="5px">
-                        <h2>  <%= resultSet.getObject("NomeEvento") %>  </h2>
-                        <form action="dettaglioEvento" method="post">
-                            <input type="hidden" name="eventId" value="<%= resultSet.getObject("Id") %>" id="eventId">
-                            <button type="submit" class="btn"> <%= resultSet.getObject("Sconto") %> % </button>
-                        </form>
-                    </div>
+                <div class="d-flex justify-content-center align-items-center">
+                    <img src="<%= resultSet.getObject("Immagine") %>" width="120px" border-radius="5px">
+                    <h2>  <%= resultSet.getObject("NomeEvento") %>  </h2>
+                    <form action="<%= dettaglioURL %>" method="post">
+                        <input type="hidden" name="eventId" value="<%= resultSet.getObject("Id") %>" id="eventId">
+                        <button type="submit" class="btn"> <%= resultSet.getObject("Sconto") %> % </button>
+                    </form>
+                </div>
             </div>
             <% itemCount++; %>
             <% } %>
@@ -84,6 +118,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+
     // Funzione per impostare un cookie
     function setCookie(name, value, days) {
         var expires = "";
@@ -131,7 +166,9 @@
         setCookie('cookie_accepted', 'false', 365); // Imposta il cookie per un anno
         document.getElementById('cookie-banner').style.display = 'none';
 
+
     });
+
 
 </script>
 
@@ -140,16 +177,11 @@
     <div class="container">
         <h1>Welcome to Zughri events</h1>
         <p>Benvenuti a Zugri Eventi, il tuo portale per vivere al massimo il tuo tempo libero a Trento e dintorni</p>
-
-        <div class="buttons">
-            <a href="<%= response.encodeURL("registra.jsp") %>"><button class="btn">Registra</button></a>
-            <a href="<%= response.encodeURL("login.jsp") %>"><button class="btn">Login</button></a>
-        </div>
     </div>
 
     <div class="container">
         <div class="container text-center">
-            <h1>Top 3 eventi piu cliccati</h1>
+            <h3>Top 3 eventi piu cliccati</h3>
 
             <% ResultSet resultSet2 = (ResultSet) request.getAttribute("resultSet2"); %>
 
@@ -167,7 +199,7 @@
                         <h4><b><%= resultSet2.getObject("NomeEvento") %></b></h4>
                         <p><%= resultSet2.getObject("DataOra")%></p>
                         <p><%= resultSet2.getObject("Localita") %></p>
-                        <form action="dettaglioEvento" method="post">
+                        <form action="<%= dettaglioURL %>" method="post">
                             <input type="hidden" name="eventId" value="<%= resultSet2.getObject("Id") %>" id="eventId">
                             <button type="submit" class="btn btn-secondary">Visualizza Evento</button>
                         </form>
@@ -177,17 +209,9 @@
                 <% counter++; %>
                 <% } %>
 
-            </div>  </div>
+            </div>
+        </div>
     </div>
-
-
-
-
-
-
-
-
-
 
 </main>
 

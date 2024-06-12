@@ -13,6 +13,8 @@ import java.sql.*;
 @WebServlet("/dettaglioEvento")
 public class DettaglioEventoServlet extends HttpServlet {
 
+
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         // Retrieve eventId from the request parameter
@@ -44,17 +46,17 @@ public class DettaglioEventoServlet extends HttpServlet {
                 request.setAttribute("prezzoASedere", resultSet.getDouble("PrezzoASedere"));
 
                 // Forward request to dettaglio_evento.jsp
-                RequestDispatcher dispatcher = request.getRequestDispatcher("dettaglio_evento.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher(response.encodeURL("dettaglio_evento.jsp"));
                 dispatcher.forward(request, response);
             } else {
                 // Handle event not found (e.g., show an error message)
                 System.out.println("eventId: " + eventId);
-                response.sendRedirect("eventi_sportivi.jsp"); // Redirect to event list page
+                response.sendRedirect(response.encodeURL("eventi_sportivi.jsp")); // Redirect to event list page
             }
         } catch (SQLException ex) {
             ex.printStackTrace(); // Handle database errors appropriately
             System.out.println("eventId SQLerr: " + eventId);
-            response.sendRedirect("eventi_sportivi.jsp"); // Redirect to event list page
+            response.sendRedirect(response.encodeURL("eventi_sportivi.jsp")); // Redirect to event list page
         }
     }
 }

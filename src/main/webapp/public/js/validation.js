@@ -30,15 +30,11 @@ function performRegister() {
         alert('Formato email non valido.');
         return;
     }
-
-    // Validate phone number format (optional)
     const phoneRegex = /^\d{10}$/; // Assuming Italian phone numbers (10 digits)
     if (!phoneRegex.test(telefono_cellulare)) {
         alert('Formato numero di telefono non valido (10 cifre).');
         return;
     }
-
-    // Validate password match
     if (password !== conferma_password) {
         alert('Le password non corrispondono.');
         return;
@@ -51,12 +47,10 @@ function performRegister() {
 
     if (!isAdult) {
         alert('Devi avere almeno 18 anni per registrarti.');
-        return false; // Stop if user is not an adult
+        return false;
     }
 
-    setTimeout(() => {
-        alert('Registrazione avvenuta con successo!');
-        // Redirect to login or other relevant page
-        window.location.href = 'login.jsp'; // Replace with your target URL
-    }, 1000); // Simulate a 1-second delay
+    alert('Registrazione avvenuta con successo!');
+    window.location.href = 'login.jsp';
+
 }

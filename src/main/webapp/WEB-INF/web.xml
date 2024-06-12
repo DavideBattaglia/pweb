@@ -15,24 +15,24 @@
     <filter-mapping>
         <filter-name>AdminFilter</filter-name>
         <url-pattern>/welcomeAdmin.jsp</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>AdminFilter</filter-name>
         <url-pattern>/VisualizzaEventi.jsp</url-pattern>
-    </filter-mapping>
-
-    <filter-mapping>
-        <filter-name>AdminFilter</filter-name>
-        <url-pattern>/DisplayEventiServlet</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>AdminFilter</filter-name>
         <url-pattern>/VisualizzaUtenti.jsp</url-pattern>
-    </filter-mapping>
-
-    <filter-mapping>
-        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/CreaEvento.jsp</url-pattern>
+        <url-pattern>/DisplayEventiServlet</url-pattern>
         <url-pattern>/DisplayUtentiServlet</url-pattern>
+        <url-pattern>/CreaEventoServlet</url-pattern>
     </filter-mapping>
-
+    <filter>
+        <filter-name>PrivateFilter</filter-name>
+        <filter-class>com.example.progweb.PrivateFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>PrivateFilter</filter-name>
+        <url-pattern>/welcome.jsp</url-pattern>
+        <url-pattern>/carrello.jsp</url-pattern>
+        <url-pattern>/coferma.jsp</url-pattern>
+        <url-pattern>/CarrelloServlet</url-pattern>
+        <url-pattern>/ClearCartServlet</url-pattern>
+        <url-pattern>/DisplayCarrelloServlet</url-pattern>
+    </filter-mapping>
 </web-app>

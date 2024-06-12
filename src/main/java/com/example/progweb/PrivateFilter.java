@@ -7,19 +7,19 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebFilter(filterName = "AdminFilter")
+@WebFilter(filterName = "PrivateFilter")
 
-public class AdminFilter implements Filter {
+public class PrivateFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
-        Boolean isAdmin = (Boolean) req.getSession().getAttribute("isAdmin");
+        String user = (String) req.getSession().getAttribute("user");
 
-        if (isAdmin == null || !isAdmin) {
+        if (user == null) {
             res.setContentType("text/html");
             PrintWriter out = res.getWriter();
             out.println("<script type='text/javascript'>");
-            out.println("alert('È richiesto l\\'accesso amministrativo');");
+            out.println("alert('È richiesto l\\'accesso');");
             ((PrintWriter) out).println("window.location.href = '" + req.getContextPath() + "/login.jsp';");
             out.println("</script>");
             out.close();

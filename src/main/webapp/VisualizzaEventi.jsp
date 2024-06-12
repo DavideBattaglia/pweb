@@ -23,6 +23,7 @@
 </script>
 <% } %>
 
+<div class="container">
 <h1>Lista Eventi</h1>
 <form method="get" action="DisplayEventiServlet">
   <label>
@@ -30,9 +31,9 @@
       <%= request.getParameter("order") != null && request.getParameter("order").equals("desc") ? "checked" : "" %>>
     Ordina per numero di click (decrescente)
   </label>
-  <input type="submit" value="Aggiorna">
+  <input type="submit" class="btn btn-secondary" value="Aggiorna">
 </form>
-<table border="1">
+<table class="table table-striped">
   <tr>
     <th>ID</th>
     <th>Tipo Evento</th>
@@ -62,12 +63,12 @@
           out.println("<td>" + rs.getInt("PostiInPiedi") + "</td>");
           out.println("<td>" + rs.getFloat("PrezzoASedere") + "</td>");
           out.println("<td>" + rs.getFloat("PrezzoInPiedi") + "</td>");
-          out.println("<td><img src='" + rs.getString("Immagine") + "' alt='Immagine'></td>");
+          out.println("<td><img src='" + rs.getString("Immagine") + "' alt='Immagine' width='50px'></td>");
           out.println("<td>"+ rs.getInt("Click") + "</td>");
           out.println("<td>");
           out.println("<form method='post' action='DisplayEventiServlet'>");
           out.println("<input type='hidden' name='Id' value='" + rs.getInt("Id") + "'>");
-          out.println("<button type='submit'>Elimina</button>");
+          out.println("<button type='submit' class='btn btn-secondary' >Elimina</button>");
           out.println("</form>");
           out.println("</td>");
           out.println("</tr>");
@@ -79,7 +80,7 @@
   %>
 </table>
 <form method="get" action="CreaEvento.jsp">
-  <button type="submit">Crea nuovo evento</button>
+  <button type="submit" class="btn btn-secondary">Crea nuovo evento</button>
 </form>
 <%
   Map<String, Integer> clickData = (Map<String, Integer>) request.getAttribute("clickData");
@@ -109,7 +110,7 @@
   });
 </script>
 <% } %>
-
+</div>
 <%@include file = "footer.html" %>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -23,6 +23,8 @@ public class DisplayVisiteGuidateServlet extends HttpServlet {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
+
+            HttpSession session = request.getSession();
             // Connessione al database
             connection = DriverManager.getConnection("jdbc:derby://localhost:1527/ProgWebDB");
             String query = "SELECT * FROM eventi WHERE TipoEvento =?";

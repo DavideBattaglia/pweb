@@ -75,7 +75,7 @@ public class RegistrationServlet extends HttpServlet {
                     HttpSession session = request.getSession();
                     session.setAttribute("user", username);
 
-                    String s = response.encodeRedirectURL("login.jsp");
+                    String s = response.encodeURL("login.jsp");
                     response.sendRedirect(s);
                     //response.sendRedirect("welcome.jsp");
                 } else {

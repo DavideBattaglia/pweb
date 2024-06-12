@@ -17,7 +17,7 @@
   <p style="text-align: center; color: darkgreen"><strong>Il tuo ordine e andato a buon fine!</strong></p>
   <div class="container1">
     <div class="event-buttons">
-      <button class="btn btn-primary" onclick="goToEvents()">Visualizza Eventi</button>
+      <button class="btn btn-primary" onclick="goToEvents()">Visualizza Visite Guidate</button>
       <button class="btn btn-primary" onclick="goToMusicEvents()">Visualizza Eventi Musicali</button>
       <button class="btn btn-primary" onclick="goToSportEvents()">Visualizza Eventi Sportivi</button>
       <button class="btn btn-primary" onclick="goToTheaterEvents()">Visualizza Eventi Teatrali</button>
@@ -27,23 +27,23 @@
   </div>
   <script>
     function goToEvents() {
-      window.location.href = "events.jsp"; // Replace with the actual URL for events.jsp
+      window.location.href = "/DisplayVisiteGuidate"; // Replace with the actual URL for events.jsp
     }
 
     function goToMusicEvents() {
-      window.location.href = "events-music.jsp"; // Replace with the actual URL for events-music.jsp
+      window.location.href = "/DisplayConcerti"; // Replace with the actual URL for events-music.jsp
     }
 
     function goToSportEvents() {
-      window.location.href = "events-sport.jsp"; // Replace with the actual URL for events-sport.jsp
+      window.location.href = "DisplayEventiSportivi"; // Replace with the actual URL for events-sport.jsp
     }
 
     function goToTheaterEvents() {
-      window.location.href = "events-theater.jsp"; // Replace with the actual URLs for events-theater.jsp
+      window.location.href = "DisplaySpettacoliTeatrali"; // Replace with the actual URLs for events-theater.jsp
     }
 
     function logout() {
-      window.location.href = "/logout"; // Replace with the actual URL for logout.jsp
+      window.location.href = response.encodeURL("logout"); // Replace with the actual URL for logout.jsp
     }
   </script>
 </div>

@@ -25,23 +25,34 @@ public class DisplayCarrelloServlet extends HttpServlet {
 
         if (username != null) {
             try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
-                // Get details of events and tickets from the cart
-                String cartQuery = "SELECT e.NomeEvento, e.DataOra, e.Localita, c.TipologiaBiglietto, c.Prezzo " +
-                        "FROM Eventi e " +
-                        "INNER JOIN Carrello c ON e.Id = c.IdEvento " +
-                        "WHERE c.Username = ?";
+                String cartQuery = "SELECT e.NomeEvento, e.DataOra, e.Localita, c.TipologiaBiglietto, c.Prezzo, e.Sconto" +
+                        " FROM Eventi e " +
+                        " INNER JOIN Carrello c ON e.Id = c.IdEvento " +
+                        " WHERE c.Username = ?";
                 PreparedStatement cartStatement = connection.prepareStatement(cartQuery);
                 cartStatement.setString(1, username);
                 ResultSet resultSet = cartStatement.executeQuery();
 
-                // Set the retrieved data and total price as request attributes
-                //request.setAttribute("totalPrice", totalPrice);
-                request.setAttribute("resultSet", resultSet);
+                // Get total number of purchases directly from Utenti table
+                String acquistiQuery = "SELECT Acquisti FROM Utenti WHERE Username = ?";
+                PreparedStatement acquistiStatement = connection.prepareStatement(acquistiQuery);
+                acquistiStatement.setString(1, username);
+                ResultSet acquistiResult = acquistiStatement.executeQuery();
 
+                int totalAcquisti = 0;
+                if (acquistiResult.next()) {
+                    totalAcquisti = acquistiResult.getInt("Acquisti");
+                }
+
+                // Set the retrieved data, total price (implementation needed), and total acquisti as request attributes
+                //request.setAttribute("totalPrice", totalPrice); // Implement price calculation
+                request.setAttribute("resultSet", resultSet);
+                request.setAttribute("totalAcquisti", totalAcquisti);
 
                 // Forward to carrello.jsp for display
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/carrello.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher(response.encodeURL("/carrello.jsp"));
                 dispatcher.forward(request, response);
+
 
             } catch (SQLException e) {
                 e.printStackTrace();

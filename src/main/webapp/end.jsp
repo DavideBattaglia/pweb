@@ -8,6 +8,6 @@
 </head>
 <body>
 Sessione terminata!<br><br>
-<a href="<%= response.encodeURL("index.jsp") %>">Indietro</a>
+<a href="<%= response.encodeURL("DisplayDiscountServlet") %>">Indietro</a>
 </body>
 </html>

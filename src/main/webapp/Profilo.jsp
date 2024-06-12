@@ -14,17 +14,8 @@
 <header>
   <%@include file = "navbar.jsp" %>
 </header>
-<div class="container">
-<h1>Lista Utenti</h1>
-<form method="get" action="DisplayUtentiServlet">
-  <label>
-    <input type="checkbox" id="order" name="order" value="desc"
-      <%= request.getParameter("order") != null && request.getParameter("order").equals("desc") ? "checked" : "" %>>
-    Ordina per numero di acquisti (decrescente)
-  </label>
-  <input type="submit" class="btn btn-secondary" value="Aggiorna">
-</form>
-<table class="table table-striped">
+<h1>Profilo</h1>
+<table border="1">
   <tr>
     <th>ID</th>
     <th>Nome</th>
@@ -36,36 +27,34 @@
     <th>Password</th>
     <th>Admin</th>
     <th>Numero di Acquisti</th>
-    <th>Elimina</th>
   </tr>
   <%
     ResultSet rs = (ResultSet) request.getAttribute("resultSet");
+    String user = (String) request.getAttribute("user");
     if (rs != null) {
       while (rs.next()) {
         out.println("<tr>");
         out.println("<td>" + rs.getInt("Id") + "</td>");
         out.println("<td>" + rs.getString("nome") + "</td>");
         out.println("<td>" + rs.getString("cognome") + "</td>");
-        out.println("<td>" + rs.getDate("data_nascita") + "</td>");
+        out.println("<td>" + rs.getTimestamp("data_nascita") + "</td>");
         out.println("<td>" + rs.getString("email") + "</td>");
         out.println("<td>" + rs.getString("telefono_cellulare") + "</td>");
         out.println("<td>" + rs.getString("username") + "</td>");
         out.println("<td>" + rs.getString("password") + "</td>");
-        out.println("<td>" + rs.getBoolean("IsAdmin") + "</td>");
         out.println("<td>" + rs.getInt("acquisti") + "</td>");
+        out.println("</tr>");
+        out.println("<tr>");
         out.println("<td>");
-        out.println("<form method='post' action='DisplayUtentiServlet'>");
+        out.println("<form method='post' action='ProfiloServlet'>");
         out.println("<input type='hidden' name='Id' value='" + rs.getInt("Id") + "'>");
-        out.println("<button type='submit' class='btn btn-secondary' >Elimina</button>");
+        out.println("<button type='submit'>Annulla l'iscrizione</button>");
         out.println("</form>");
-        out.println("</td>");
-
         out.println("</tr>");
       }
     }
   %>
 </table>
-</div>
 <%@include file = "footer.html" %>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

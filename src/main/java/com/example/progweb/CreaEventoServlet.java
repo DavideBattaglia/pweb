@@ -21,7 +21,7 @@ public class CreaEventoServlet extends HttpServlet {
         String immagine = request.getParameter("immagine");
         int Sconto = Integer.parseInt(request.getParameter("Sconto"));
 
-        String sql = "INSERT INTO Eventi (TipoEvento, NomeEvento, DataOra, Localita, PostiASedere, PostiInPiedi, PrezzoASedere, PrezzoInPiedi, Immagine, Click, Sconto) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?)";
+        String sql = "INSERT INTO Eventi (TipoEvento, NomeEvento, DataOra, Localita, PostiASedere, PostiInPiedi, PrezzoASedere, PrezzoInPiedi, Immagine, Sconto, Click) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)";
 
         try (Connection connection = DriverManager.getConnection("jdbc:derby://localhost:1527/ProgWebDB", "app", "aa");) {
             PreparedStatement stmt = connection.prepareStatement(sql);

@@ -1,5 +1,38 @@
 <%@ page import="java.sql.*, java.sql.ResultSetMetaData" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%
+  String Consent = null;
+  javax.servlet.http.Cookie[] biscotti = request.getCookies();
+  if (biscotti != null) {
+    for (javax.servlet.http.Cookie cookie : biscotti) {
+      if ("cookie_accepted".equals(cookie.getName())) {
+        Consent = cookie.getValue();
+        break;
+      }
+    }
+  }
+
+
+  String sid = session.getId();
+  String dettaglioURL = "dettaglioEvento";
+
+  if("false".equals(Consent)){
+    dettaglioURL += ";jsessionid=" + sid;
+
+  }
+
+  try {
+    String dettaglioencodedURL = URLEncoder.encode(dettaglioURL, "UTF-8");
+
+
+  } catch (UnsupportedEncodingException e) {
+    // Gestione dell'eccezione, se necessario
+    e.printStackTrace();
+  }
+%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,35 +45,33 @@
 <header>
   <%@include file = "navbar.jsp" %>
 </header>
+<div class="container">
+  <div class="container text-center">
+    <h1>VISITE GUIDATE</h1>
 
-<div class="container text-center">
-  <h1>Visite guidate Disponibili</h1>
+    <% ResultSet resultSet = (ResultSet) request.getAttribute("resultSet"); %>
 
-  <% ResultSet resultSet = (ResultSet) request.getAttribute("resultSet"); %>
 
-  <% while (resultSet.next()) { %>
-  <div class="card mb-3">
-    <div class="card-img-top-container">
-      <img class="card-img-top" src="<%= resultSet.getObject("Immagine") %>" alt="Immagine Evento">
-    </div>
-    <div class="card-body">
-      <h5 class="card-title"><%= resultSet.getObject("NomeEvento") %></h5>
-      <p class="card-text">
-        Data e Ora: <%= resultSet.getObject("DataOra") %> <br>
-        Luogo: <%= resultSet.getObject("Localita") %>
-      </p>
-
-      <div class="d-flex justify-content-between">
-        <form action="dettaglioEvento" method="post">
-          <input type="hidden" name="eventId" value="<%= resultSet.getObject("Id") %>" id="eventId">
-          <div class="container1">
+    <div class="row">
+      <% while (resultSet.next()) { // Loop through each event result and limit to 3 %>
+      <div class="col-md-4 card">
+        <div class="card-img-top-container">
+          <img src="<%= (String) resultSet.getObject("Immagine") %>" width="100%" >
+        </div>
+        <div class="container">
+          <h4><b><%= resultSet.getObject("NomeEvento") %></b></h4>
+          <p><%= resultSet.getObject("DataOra")%></p>
+          <p><%= resultSet.getObject("Localita") %></p>
+          <form action="<%= dettaglioURL %>" method="post">
+            <input type="hidden" name="eventId" value="<%= resultSet.getObject("Id") %>" id="eventId">
             <button type="submit" class="btn btn-secondary">Visualizza Evento</button>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
+      <% } %>
+
     </div>
   </div>
-  <% } %>
 </div>
 
 <%@include file = "footer.html" %>
